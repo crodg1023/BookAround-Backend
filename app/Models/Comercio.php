@@ -20,4 +20,8 @@ class Comercio extends Model
     public function citas() {
         return $this->hasMany(Cita::class);
     }
+
+    public function categorias() {
+        return $this->belongsToMany(Categoria::class);
+    }
 }

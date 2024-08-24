@@ -15,7 +15,9 @@ class ComercioController extends Controller
      */
     public function index()
     {
-        return Comercio::get();
+        //return Comercio::get();
+        $comercios = Comercio::with('categorias')->get();
+        return response()->json($comercios);
     }
 
     /**
@@ -41,7 +43,8 @@ class ComercioController extends Controller
      */
     public function show(Comercio $company)
     {
-        return $company;
+        $company->load('categorias');
+        return response()->json($company);
     }
 
     /**

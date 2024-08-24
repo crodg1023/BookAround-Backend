@@ -19,7 +19,7 @@ class UsuariosSeeder extends Seeder
         $roles = Role::all();
 
         $roles->each(function($role) {
-            Usuario::factory()->count(5)->create([ 'role_id' => $role->id ]);
+            Usuario::factory()->count(24)->create([ 'role_id' => $role->id ]);
         });
 
     }

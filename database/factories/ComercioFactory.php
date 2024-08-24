@@ -19,10 +19,12 @@ class ComercioFactory extends Factory
         return [
             'name' => fake()->company(),
             'address' => fake()->unique()->address(),
-            'city' => fake()->city(),
-            'country' => fake()->country(),
+            'pictures' => fake()->imageUrl(640, 480, 'animals', true),
             'description' => fake()->paragraph(),
-            'score' => fake()->randomFloat(2, 0, 10)
+            'price' => fake()->numberBetween(0, 200),
+            'score' => fake()->randomFloat(1, 0, 5),
+            'starting_hour' => fake()->time(),
+            'closing_hour' => fake()->time()
         ];
     }
 }

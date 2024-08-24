@@ -16,8 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id');
             $table->string('name');
             $table->string('address');
-            $table->string('city');
-            $table->string('country');
+            $table->string('pictures');
+            $table->integer('price');
+            $table->time('starting_hour');
+            $table->time('closing_hour');
             $table->longText('description');
             $table->double('score')->nullable();
             $table->timestamps();

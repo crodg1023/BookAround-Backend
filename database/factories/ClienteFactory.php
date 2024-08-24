@@ -17,7 +17,8 @@ class ClienteFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name()
+            'name' => fake()->name(),
+            'picture' => fake()->imageUrl(640, 480, 'animals', true)
         ];
     }
 }
