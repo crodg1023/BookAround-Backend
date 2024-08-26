@@ -42,10 +42,12 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UsuarioRequest $request, Usuario $user)
+    public function update(Request $request, Usuario $user)
     {
         $user->email = $request->email ?: $user->email;
         $user->password = $request->password ?: $user->password;
+        $user->cliente_id = $request->cliente_id ?: null;
+        $user->comercio_id = $request->comercio_id ?: null;
         $user->save();
 
         return response()->json($user);
