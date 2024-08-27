@@ -15,7 +15,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return Cliente::get();
+        $customers = Cliente::with('usuario')->get();
+        return response()->json($customers);
     }
 
     /**
@@ -35,7 +36,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $customer)
     {
-        return $customer;
+        return response()->json($customer->load('usuario'));
     }
 
     /**
