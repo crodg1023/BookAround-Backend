@@ -10,9 +10,11 @@ use App\Http\Requests\ComercioRequest;
 
 class ComercioController extends Controller
 {
+    /*
     public function __construct() {
         $this->middleware('auth:sanctum', [ 'except' => [ 'index', 'show'] ]);
     }
+    */
     /**
      * Display a listing of the resource.
      */
@@ -31,6 +33,7 @@ class ComercioController extends Controller
         $new_company->name = $request->name;
         $new_company->address = $request->address;
         $new_company->description = $request->description;
+        $new_company->phone = $request->phone;
         $new_company->score = 0;
         $new_company->usuario()->associate(Usuario::findOrFail($request->usuario_id));
         $new_company->save();
@@ -54,8 +57,6 @@ class ComercioController extends Controller
     {
         $company->name = $request->name ?: $company->name;
         $company->address = $request->address ?: $company->address;
-        $company->city = $request->city ?: $company->city;
-        $company->country = $request->country ?: $company->country;
         $company->description = $request->description ?: $company->description;
         $company->score = $request->score ?: $company->score;
         $company->save();

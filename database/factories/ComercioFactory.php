@@ -19,6 +19,7 @@ class ComercioFactory extends Factory
         return [
             'name' => fake()->company(),
             'address' => fake()->unique()->address(),
+            'phone' => fake()->phoneNumber(),
             'pictures' => fake()->imageUrl(640, 480, 'animals', true),
             'description' => fake()->paragraph(),
             'price' => fake()->numberBetween(0, 200),

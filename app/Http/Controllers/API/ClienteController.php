@@ -7,6 +7,8 @@ use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Http\Requests\ClienteRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ClienteController extends Controller
 {
@@ -42,9 +44,9 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ClienteRequest $request, Cliente $customer)
+    public function update(Request $request, Cliente $customer)
     {
-        $customer->name = $request->name;
+        $customer->name = $request->name ?: $customer->name;
         $customer->save();
         return response()->json($customer);
     }

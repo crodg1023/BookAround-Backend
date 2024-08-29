@@ -16,11 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id');
             $table->string('name');
             $table->string('address');
-            $table->string('pictures');
-            $table->integer('price');
-            $table->time('starting_hour');
-            $table->time('closing_hour');
-            $table->longText('description');
+            $table->string('phone');
+            $table->string('pictures')->nullable();
+            $table->integer('price')->nullable();
+            $table->time('starting_hour')->nullable();
+            $table->time('closing_hour')->nullable();
+            $table->longText('description')->nullable();
             $table->double('score')->nullable();
             $table->timestamps();
             $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
