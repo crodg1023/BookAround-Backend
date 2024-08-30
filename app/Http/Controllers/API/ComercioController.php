@@ -47,6 +47,7 @@ class ComercioController extends Controller
     public function show(Comercio $company)
     {
         $company->load('categorias');
+        $company->load('usuario');
         return response()->json($company);
     }
 
