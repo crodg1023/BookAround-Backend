@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReviewRequest;
+use App\Http\Resources\ReviewResource;
+use App\Models\Comercio;
 
 class ReviewController extends Controller
 {
@@ -14,7 +16,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        return Review::get();
+        return ReviewResource::collection(Review::all());
     }
 
     /**
@@ -29,6 +31,12 @@ class ReviewController extends Controller
         $new_review->content = $request->content;
         $new_review->save();
 
+        $comercio = Comercio::findOrFail($request->comercio_id);
+        $total_score = Review::where('comercio_id', $request->comercio_id)->sum('score');
+        $review_count = Review::where('comercio_id', $request->comercio_id)->count();
+        $comercio->score = $total_score/$review_count;
+        $comercio->save();
+
         return response()->json($new_review);
     }
 
@@ -37,7 +45,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        return $review;
+        return new ReviewResource($review);
     }
 
     /**
