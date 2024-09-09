@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comercio;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Http\Resources\ComercioResource;
 use App\Http\Requests\ComercioRequest;
 
 class ComercioController extends Controller
@@ -20,8 +21,7 @@ class ComercioController extends Controller
      */
     public function index()
     {
-        $comercios = Comercio::with('categorias')->get();
-        return response()->json($comercios);
+        return ComercioResource::collection(Comercio::all());
     }
 
     /**
@@ -46,9 +46,7 @@ class ComercioController extends Controller
      */
     public function show(Comercio $company)
     {
-        $company->load('categorias');
-        $company->load('usuario');
-        return response()->json($company);
+        return new ComercioResource($company);
     }
 
     /**

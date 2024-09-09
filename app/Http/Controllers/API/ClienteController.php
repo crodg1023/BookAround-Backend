@@ -7,8 +7,7 @@ use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Http\Requests\ClienteRequest;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
+use App\Http\Resources\ClienteResource;
 
 class ClienteController extends Controller
 {
@@ -17,8 +16,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $customers = Cliente::with('usuario')->get();
-        return response()->json($customers);
+        return ClienteResource::collection(Cliente::all());
     }
 
     /**
@@ -38,7 +36,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $customer)
     {
-        return response()->json($customer->load('usuario'));
+        return new ClienteResource($customer);
     }
 
     /**

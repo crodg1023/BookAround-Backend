@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Categoria;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoriaResource;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -13,7 +14,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return Categoria::get();
+        return CategoriaResource::collection(Categoria::all());
     }
 
     /**
@@ -29,7 +30,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $category)
     {
-        return $category;
+        return new CategoriaResource($category);
     }
 
     /**
