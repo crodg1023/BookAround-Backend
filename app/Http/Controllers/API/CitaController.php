@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cita;
 use Illuminate\Http\Request;
 use App\Http\Requests\CitaRequest;
+use App\Http\Resources\CitaResource;
 
 class CitaController extends Controller
 {
@@ -14,7 +15,7 @@ class CitaController extends Controller
      */
     public function index()
     {
-        return Cita::get();
+        return CitaResource::collection(Cita::all());
     }
 
     /**
@@ -36,7 +37,7 @@ class CitaController extends Controller
      */
     public function show(Cita $appointment)
     {
-        return $appointment;
+        return new CitaResource($appointment);
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ReviewRequest;
 use App\Http\Resources\ReviewResource;
 use App\Models\Comercio;
+use App\Events\NewReviewEvent;
 
 class ReviewController extends Controller
 {
@@ -36,6 +37,8 @@ class ReviewController extends Controller
         $review_count = Review::where('comercio_id', $request->comercio_id)->count();
         $comercio->score = $total_score/$review_count;
         $comercio->save();
+
+        broadcast(new NewReviewEvent($new_review))->toOthers();
 
         return response()->json($new_review);
     }
