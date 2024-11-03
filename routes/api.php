@@ -10,6 +10,7 @@ use App\Http\Controllers\API\ReviewController;
 use App\Http\Controllers\API\CategoriaController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\CategoriasComercioController;
+use App\Http\Controllers\API\ImageController;
 
 /*
 Route::get('/user', function (Request $request) {
@@ -24,5 +25,6 @@ Route::apiResource('appointments', CitaController::class);
 Route::apiResource('reviews', ReviewController::class);
 Route::apiResource('categories', CategoriaController::class);
 Route::apiResource('business-categories', CategoriasComercioController::class);
+Route::apiResource('images', ImageController::class);
 
 Route::post('login', [LoginController::class, 'login']);

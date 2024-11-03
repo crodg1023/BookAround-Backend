@@ -24,4 +24,8 @@ class Comercio extends Model
     public function categorias() {
         return $this->belongsToMany(Categoria::class);
     }
+
+    public function images() {
+        return $this->hasMany(Image::class);
+    }
 }
