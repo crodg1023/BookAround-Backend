@@ -7,6 +7,7 @@ use App\Models\Cita;
 use Illuminate\Http\Request;
 use App\Http\Requests\CitaRequest;
 use App\Http\Resources\CitaResource;
+use Carbon\Carbon;
 
 class CitaController extends Controller
 {
@@ -21,12 +22,15 @@ class CitaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CitaRequest $request)
+    public function store(Request $request)
     {
         $new_appointment = new Cita();
         $new_appointment->comercio()->associate($request->comercio_id);
         $new_appointment->cliente()->associate($request->cliente_id);
-        $new_appointment->date_time = $request->date_time;
+        $new_appointment->date_time = Carbon::parse($request->dateTime)->format('Y-m-d H:i:s');
+        $new_appointment->people = $request->people;
+        $new_appointment->status = $request->status;
+        $new_appointment->reservation_email = $request->reservation_email;
         $new_appointment->save();
 
         return response()->json($new_appointment);

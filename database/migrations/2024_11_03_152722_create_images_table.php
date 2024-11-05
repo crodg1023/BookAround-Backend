@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('citas', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('comercio_id');
+            $table->string('name');
             $table->unsignedBigInteger('cliente_id')->nullable();
-            $table->datetime('date_time');
-            $table->integer('people');
-            $table->string('reservation_email');
-            $table->string('status');
+            $table->unsignedBigInteger('comercio_id')->nullable();
             $table->timestamps();
-            $table->foreign('comercio_id')->references('id')->on('comercios')->onDelete('cascade');
+
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('comercio_id')->references('id')->on('comercios')->onDelete('cascade');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('citas');
+        Schema::dropIfExists('images');
     }
 };
