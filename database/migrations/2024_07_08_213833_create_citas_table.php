@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('comercio_id');
-            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('cliente_id')->nullable();
             $table->datetime('date_time');
+            $table->integer('people');
+            $table->string('reservation_email');
             $table->string('status');
             $table->timestamps();
             $table->foreign('comercio_id')->references('id')->on('comercios')->onDelete('cascade');

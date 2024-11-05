@@ -23,7 +23,9 @@ class CitaFactory extends Factory
 
         return [
             'date_time' => Carbon::instance(fake()->dateTimeBetween($start, $end))->format('Y-m-d H:i:s'),
-            'status' => $status[rand(0, count($status) - 1)]
+            'status' => $status[rand(0, count($status) - 1)],
+            'people' => rand(0, 10),
+            'reservation_email' => fake()->email()
         ];
     }
 }

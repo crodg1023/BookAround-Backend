@@ -26,5 +26,6 @@ Route::apiResource('reviews', ReviewController::class);
 Route::apiResource('categories', CategoriaController::class);
 Route::apiResource('business-categories', CategoriasComercioController::class);
 Route::apiResource('images', ImageController::class);
+Route::get('customers/{id}/image', [ImageController::class, 'getCustomerImage']);
 
 Route::post('login', [LoginController::class, 'login']);
