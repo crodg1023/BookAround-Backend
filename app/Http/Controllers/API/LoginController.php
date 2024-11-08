@@ -18,7 +18,8 @@ class LoginController extends Controller
                 'token' => $user->createToken($user->email)->plainTextToken,
                 'role' => $user->role->type,
                 'client_id' => $user->cliente_id,
-                'business_id' => $user->comercio_id
+                'business_id' => $user->comercio_id,
+                'email' => $user->email
             ]);
         }
     }
