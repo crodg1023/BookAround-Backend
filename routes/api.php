@@ -27,5 +27,7 @@ Route::apiResource('categories', CategoriaController::class);
 Route::apiResource('business-categories', CategoriasComercioController::class);
 Route::apiResource('images', ImageController::class);
 Route::get('customers/{id}/image', [ImageController::class, 'getCustomerImage']);
+Route::get('appointments/customers/{id}', [CitaController::class, 'getCustomerAppointments']);
+Route::get('appointments/companies/{id}', [CitaController::class, 'getBusinessAppointments']);
 
 Route::post('login', [LoginController::class, 'login']);

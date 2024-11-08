@@ -19,7 +19,8 @@ class CitaResource extends JsonResource
             'business' => new ComercioResource($this->comercio),
             'client' => new ClienteResource($this->cliente),
             'dateTime' => $this->date_time,
-            'status' => $this->status
+            'status' => $this->status,
+            'numberOfPeople' => $this->people
         ];
     }
 }

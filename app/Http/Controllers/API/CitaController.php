@@ -27,7 +27,6 @@ class CitaController extends Controller
      */
     public function store(Request $request)
     {
-
         $parsed_date = Carbon::parse($request->dateTime);
 
         $new_appointment = new Cita();
@@ -76,5 +75,31 @@ class CitaController extends Controller
     {
         $appointment->delete();
         return response()->json($appointment);
+    }
+
+    public function getCustomerAppointments($id)
+    {
+        $appointments = Cita::where('cliente_id', $id)->get();
+
+        if (count($appointments) === 0) {
+            return response()->json([
+                'message' => 'Appointments not found'
+            ], 404);
+        }
+
+        return response()->json(CitaResource::collection($appointments));
+    }
+
+    public function getBusinessAppointments($id)
+    {
+        $appointments = Cita::where('comercio_id', $id)->get();
+
+        if (count($appointments) === 0) {
+            return response()->json([
+                'message' => 'Appointments not found'
+            ], 404);
+        }
+
+        return response()->json(CitaResource::collection($appointments));
     }
 }
