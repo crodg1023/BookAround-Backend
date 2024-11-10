@@ -79,7 +79,7 @@ class CitaController extends Controller
 
     public function getCustomerAppointments($id)
     {
-        $appointments = Cita::where('cliente_id', $id)->get();
+        $appointments = Cita::where('cliente_id', $id)->orderBy('date_time', 'asc')->get();
 
         if (count($appointments) === 0) {
             return response()->json([
@@ -92,7 +92,7 @@ class CitaController extends Controller
 
     public function getBusinessAppointments($id)
     {
-        $appointments = Cita::where('comercio_id', $id)->get();
+        $appointments = Cita::where('comercio_id', $id);
 
         if (count($appointments) === 0) {
             return response()->json([
