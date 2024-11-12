@@ -34,6 +34,8 @@ class ComercioController extends Controller
         $new_company->address = $request->address;
         $new_company->description = $request->description;
         $new_company->phone = $request->phone;
+        $new_company->starting_hour = $request->workingHours['opening'];
+        $new_company->closing_hour = $request->workingHours['closing'];
         $new_company->score = 0;
         $new_company->usuario()->associate(Usuario::findOrFail($request->usuario_id));
         $new_company->save();
