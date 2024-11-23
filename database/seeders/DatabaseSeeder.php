@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             CitasSeeder::class,
             ReviewsSeeder::class,
             CategoriesSeeder::class,
-            CategoriasComerciosSeeder::class
+            CategoriasComerciosSeeder::class,
+            ReporteSeeder::class
         ]);
     }
 }

@@ -25,7 +25,7 @@ class UsuarioFactory extends Factory
     {
         return [
             'email' => fake()->unique()->safeEmail(),
-            'password' => fake()->word(),
+            'password' => 'interpol',
         ];
     }
 

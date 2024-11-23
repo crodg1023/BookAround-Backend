@@ -11,6 +11,7 @@ use App\Http\Controllers\API\CategoriaController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\CategoriasComercioController;
 use App\Http\Controllers\API\ImageController;
+use App\Http\Controllers\API\ReporteController;
 
 /*
 Route::get('/user', function (Request $request) {
@@ -26,8 +27,13 @@ Route::apiResource('reviews', ReviewController::class);
 Route::apiResource('categories', CategoriaController::class);
 Route::apiResource('business-categories', CategoriasComercioController::class);
 Route::apiResource('images', ImageController::class);
+Route::apiResource('reports', ReporteController::class);
+Route::get('reportes/reviews', [ReporteController::class, 'getReviewsReports']);
+Route::get('reportes/companies', [ReporteController::class, 'getBusinessReports']);
+Route::get('reportes/customers', [ReporteController::class, 'getCustomersReports']);
 Route::get('customers/{id}/image', [ImageController::class, 'getCustomerImage']);
 Route::get('appointments/customers/{id}', [CitaController::class, 'getCustomerAppointments']);
 Route::get('appointments/companies/{id}', [CitaController::class, 'getBusinessAppointments']);
+Route::get('reviews/companies/{id}', [ReviewController::class, 'getBusinessReviews']);
 
 Route::post('login', [LoginController::class, 'login']);

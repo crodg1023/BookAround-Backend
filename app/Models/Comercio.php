@@ -9,6 +9,16 @@ class Comercio extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'address',
+        'description',
+        'phone',
+        'starting_hour',
+        'closing_hour',
+        'score'
+    ];
+
     public function usuario() {
         return $this->belongsTo(Usuario::class);
     }
@@ -27,5 +37,10 @@ class Comercio extends Model
 
     public function images() {
         return $this->hasMany(Image::class);
+    }
+
+    public function reportes()
+    {
+        return $this->morphMany(Reporte::class, 'reportable');
     }
 }

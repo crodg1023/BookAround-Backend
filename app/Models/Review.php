@@ -15,4 +15,9 @@ class Review extends Model
     public function comercio() {
         return $this->belongsTo(Comercio::class);
     }
+
+    public function reportes()
+    {
+        return $this->morphMany(Reporte::class, 'reportable');
+    }
 }

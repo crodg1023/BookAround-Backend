@@ -71,4 +71,11 @@ class ReviewController extends Controller
         $review->delete();
         return response()->json($review);
     }
+
+    public function getBusinessReviews($id)
+    {
+        $reviews = Review::where('comercio_id', $id)->orderBy('created_at', 'asc')->get();
+
+        return ReviewResource::collection($reviews);
+    }
 }

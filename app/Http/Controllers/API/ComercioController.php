@@ -30,10 +30,10 @@ class ComercioController extends Controller
     public function store(ComercioRequest $request)
     {
         $new_company = new Comercio();
-        $new_company->name = $request->name;
-        $new_company->address = $request->address;
-        $new_company->description = $request->description;
-        $new_company->phone = $request->phone;
+        $new_company->name = $request->input('name');
+        $new_company->address = $request->input('address');
+        $new_company->description = $request->input('description');
+        $new_company->phone = $request->input('phone');
         $new_company->starting_hour = $request->workingHours['opening'];
         $new_company->closing_hour = $request->workingHours['closing'];
         $new_company->score = 0;
@@ -54,13 +54,9 @@ class ComercioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ComercioRequest $request, Comercio $company)
+    public function update(Request $request, Comercio $company)
     {
-        $company->name = $request->name ?: $company->name;
-        $company->address = $request->address ?: $company->address;
-        $company->description = $request->description ?: $company->description;
-        $company->score = $request->score ?: $company->score;
-        $company->save();
+        $company->update($request->all());
 
         return response()->json($company);
     }

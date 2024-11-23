@@ -40,11 +40,13 @@ class CitaController extends Controller
 
         $comercio = Comercio::findOrFail($request->comercio_id);
 
+        /*
         Mail::to($request->reservation_email)->send(new AppointmentReservedMail([
             'comercio' => $comercio->name,
             'fecha' => $parsed_date->format('d/m/Y'),
             'hora' => $parsed_date->format('h:i A')
         ]));
+        */
 
         return response()->json($new_appointment);
     }
@@ -60,9 +62,24 @@ class CitaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CitaRequest $request, Cita $appointment)
+    public function update(Request $request, Cita $appointment)
     {
-        $appointment->date_time = $request->date_time ?: $appointment->date_time;
+        $request->validate([
+            'dateTime' => [
+                'required',
+                'date',
+                'after:now'
+            ],
+            'people' => [
+                'integer',
+                'min:1',
+                'max:10'
+            ]
+        ]);
+
+        $parsed_date = Carbon::parse($request->input('dateTime'));
+        $appointment->date_time = $parsed_date ?: $appointment->date_time;
+        $appointment->people = $request->input('people') ?: $appointment->people;
         $appointment->save();
 
         return response()->json($appointment);
@@ -81,24 +98,12 @@ class CitaController extends Controller
     {
         $appointments = Cita::where('cliente_id', $id)->orderBy('date_time', 'asc')->get();
 
-        if (count($appointments) === 0) {
-            return response()->json([
-                'message' => 'Appointments not found'
-            ], 404);
-        }
-
-        return response()->json(CitaResource::collection($appointments));
+        return CitaResource::collection($appointments);
     }
 
     public function getBusinessAppointments($id)
     {
-        $appointments = Cita::where('comercio_id', $id);
-
-        if (count($appointments) === 0) {
-            return response()->json([
-                'message' => 'Appointments not found'
-            ], 404);
-        }
+        $appointments = Cita::where('comercio_id', $id)->orderBy('date_time', 'asc')->get();
 
         return response()->json(CitaResource::collection($appointments));
     }
