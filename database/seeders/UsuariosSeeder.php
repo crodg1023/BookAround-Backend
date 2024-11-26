@@ -16,11 +16,12 @@ class UsuariosSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = Role::all();
+        $roles = Role::pluck('id')->toArray();
 
-        $roles->each(function($role) {
-            Usuario::factory()->count(24)->create([ 'role_id' => $role->id ]);
-        });
-
+        Usuario::factory(50)->create([
+            'role_id' => function () use ($roles ) {
+                return $roles[array_rand($roles)];
+            }
+        ]);
     }
 }

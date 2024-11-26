@@ -4,21 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Role;
+use App\Models\Reporte;
 
-class RolesSeeder extends Seeder
+class ReporteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $roles = [
-            ['type' => 'customer'],
-            ['type' => 'company'],
-            ['type' => 'admin'],
-        ];
-
-        Role::insert($roles);
+        Reporte::factory(20)->create();
     }
 }

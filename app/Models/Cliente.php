@@ -24,4 +24,9 @@ class Cliente extends Model
     public function image() {
         return $this->hasOne(Image::class);
     }
+
+    public function reportes()
+    {
+        return $this->morphMany(Reporte::class, 'reportable');
+    }
 }

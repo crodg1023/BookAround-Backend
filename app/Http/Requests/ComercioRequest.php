@@ -22,9 +22,12 @@ class ComercioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'usuario_id' => 'required|numeric|min:1',
-            'name' => 'required|min:5',
-            'address' => 'required|min:10'
+            'usuario_id' => 'required|exists:usuarios,id',
+            'name' => 'required|min:1',
+            'address' => 'required|min:1',
+            'phone' => 'required|numeric',
+            'workingHours' => 'required',
+            'description' => 'required|min:1'
         ];
     }
 

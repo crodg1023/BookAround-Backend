@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CitaResource extends JsonResource
+class ReporteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,9 @@ class CitaResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'business' => new ComercioResource($this->comercio),
-            'client' => new ClienteResource($this->cliente),
-            'dateTime' => $this->date_time,
-            'status' => $this->status,
-            'people' => $this->people
+            'reportable' => $this->reportable,
+            'reason' => $this->reason,
+            'created_at' => $this->created_at
         ];
     }
 }
