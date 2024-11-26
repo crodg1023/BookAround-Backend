@@ -19,7 +19,8 @@ class LoginController extends Controller
                 'role' => $user->role->type,
                 'client_id' => $user->cliente_id,
                 'business_id' => $user->comercio_id,
-                'email' => $user->email
+                'email' => $user->email,
+                'id' => $user->id
             ]);
         }
     }

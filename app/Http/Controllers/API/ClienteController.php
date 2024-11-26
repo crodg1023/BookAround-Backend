@@ -54,6 +54,11 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $customer)
     {
+        foreach ($customer->reviews as $review) {
+            $review->reportes()->delete();
+            $review->delete();
+        }
+        $customer->reportes()->delete();
         $customer->delete();
         return response()->json($customer);
     }

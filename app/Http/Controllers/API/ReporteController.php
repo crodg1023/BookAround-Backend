@@ -25,7 +25,20 @@ class ReporteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reportable_type = match ($request->input('reportable_type')) {
+            'business' => Comercio::class,
+            'customer' => Cliente::class,
+            'review' => Review::class,
+        };
+
+        $report = Reporte::create([
+            'reportable_id' => $request->input('reportable_id'),
+            'reportable_type' => $reportable_type,
+            'reason' => $request->input('reason'),
+            'usuario_id' => $request->input('usuario_id')
+        ]);
+
+        return response()->json($report);
     }
 
     /**

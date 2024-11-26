@@ -9,7 +9,12 @@ class Reporte extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['usuario_id', 'reason'];
+    protected $fillable = [
+        'usuario_id',
+        'reason',
+        'reportable_id',
+        'reportable_type'
+    ];
 
     public function reportable()
     {

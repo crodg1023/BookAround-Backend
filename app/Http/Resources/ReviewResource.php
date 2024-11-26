@@ -19,7 +19,8 @@ class ReviewResource extends JsonResource
             'comercio_id' => $this->comercio_id,
             'client' => [
                 'name' => $this->cliente->name,
-                'picture' => $this->cliente->picture
+                'picture' => $this->cliente->picture,
+                'id' => $this->cliente->id
             ],
             'score' => $this->score,
             'content' => $this->content,

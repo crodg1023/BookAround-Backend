@@ -66,6 +66,7 @@ class ComercioController extends Controller
      */
     public function destroy(Comercio $company)
     {
+        $company->reportes()->delete();
         $company->delete();
         return response()->json($company);
     }

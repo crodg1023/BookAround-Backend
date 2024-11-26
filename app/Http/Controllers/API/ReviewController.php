@@ -68,6 +68,7 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
+        $review->reportes()->delete();
         $review->delete();
         return response()->json($review);
     }
