@@ -31,12 +31,8 @@ class CitaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CitaRequest $request)
     {
-        $request->validate([
-            'dateTime' => 'required|date|after:now'
-        ]);
-
         $parsed_date = Carbon::parse($request->dateTime);
 
         $new_appointment = new Cita();

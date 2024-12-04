@@ -57,6 +57,13 @@ class ComercioController extends Controller
      */
     public function update(Request $request, Comercio $company)
     {
+        $request->validate([
+            'name' => 'min:1',
+            'phone' => 'numeric',
+            'address' => 'min:1',
+            'description' => 'min:1'
+        ]);
+
         $company->update($request->all());
 
         return response()->json($company);
