@@ -20,7 +20,8 @@ class CitaResource extends JsonResource
             'client' => new ClienteResource($this->cliente),
             'dateTime' => $this->date_time,
             'status' => $this->status,
-            'people' => $this->people
+            'people' => $this->people,
+            'reservation_email' => $this->reservation_email
         ];
     }
 }

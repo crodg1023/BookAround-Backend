@@ -19,7 +19,6 @@ class CitaController extends Controller
     {
         $this->middleware('auth:sanctum')->except('store');
         $this->middleware(RoleMiddleware::class . ':customer')->only(['delete', 'update', 'getCustomerAppointments']);
-        $this->middleware(RoleMiddleware::class . ':company')->except(['store', 'getCustomerAppointments'] );
     }
     /**
      * Display a listing of the resource.
