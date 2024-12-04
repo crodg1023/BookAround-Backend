@@ -13,7 +13,6 @@ class UsuarioController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except('store');
         $this->middleware(RoleMiddleware::class . ':admin')->only('destroy');
     }
     /**

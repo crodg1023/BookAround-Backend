@@ -14,7 +14,7 @@ class ClienteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except('store');
+        $this->middleware('auth:sanctum')->only(['update', 'destroy']);
         $this->middleware(RoleMiddleware::class . ':admin')->only('destroy');
     }
     /**

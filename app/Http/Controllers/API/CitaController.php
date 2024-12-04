@@ -18,8 +18,8 @@ class CitaController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except('store');
-        $this->middleware(RoleMiddleware::class . ':customer')->only(['delete', 'update']);
-        $this->middleware(RoleMiddleware::class . ':company')->except('store');
+        $this->middleware(RoleMiddleware::class . ':customer')->only(['delete', 'update', 'getCustomerAppointments']);
+        $this->middleware(RoleMiddleware::class . ':company')->except(['store', 'getCustomerAppointments'] );
     }
     /**
      * Display a listing of the resource.
