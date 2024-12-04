@@ -9,9 +9,16 @@ use App\Models\Review;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\ReporteResource;
+use App\Http\Middleware\RoleMiddleware;
 
 class ReporteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+        $this->middleware(RoleMiddleware::class . ':admin')->except('store');
+        $this->middleware(RoleMiddleware::class . ':customer')->only('store');
+    }
     /**
      * Display a listing of the resource.
      */

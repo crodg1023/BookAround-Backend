@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Http\Requests\ClienteRequest;
 use App\Http\Resources\ClienteResource;
+use App\Http\Middleware\RoleMiddleware;
 
 class ClienteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('store');
+        $this->middleware(RoleMiddleware::class . ':admin')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

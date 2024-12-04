@@ -11,9 +11,16 @@ use App\Http\Resources\CitaResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AppointmentReservedMail;
+use App\Http\Middleware\RoleMiddleware;
 
 class CitaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('store');
+        $this->middleware(RoleMiddleware::class . ':customer')->only(['delete', 'update']);
+        $this->middleware(RoleMiddleware::class . ':company')->except('store');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -27,6 +34,10 @@ class CitaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'dateTime' => 'required|date|after:now'
+        ]);
+
         $parsed_date = Carbon::parse($request->dateTime);
 
         $new_appointment = new Cita();
