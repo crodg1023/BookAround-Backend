@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Cita;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,14 +9,14 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AppointmentReservedMail extends Mailable
+class AppointmentCanceledMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(public Cita $cita)
+    public function __construct()
     {
         //
     }
@@ -28,7 +27,7 @@ class AppointmentReservedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Tu cita ha sido agendada!',
+            subject: 'Tu cita ha sido cancelada',
         );
     }
 
@@ -38,7 +37,7 @@ class AppointmentReservedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.appointment-reserved',
+            view: 'mails.appointment-canceled',
         );
     }
 

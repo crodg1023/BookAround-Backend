@@ -9,9 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CitaRequest;
 use App\Http\Resources\CitaResource;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AppointmentReservedMail;
 use App\Http\Middleware\RoleMiddleware;
+
 
 class CitaController extends Controller
 {
@@ -45,14 +44,6 @@ class CitaController extends Controller
         $new_appointment->save();
 
         $comercio = Comercio::findOrFail($request->comercio_id);
-
-        /*
-        Mail::to($request->reservation_email)->send(new AppointmentReservedMail([
-            'comercio' => $comercio->name,
-            'fecha' => $parsed_date->format('d/m/Y'),
-            'hora' => $parsed_date->format('h:i A')
-        ]));
-        */
 
         return response()->json($new_appointment);
     }
