@@ -32,6 +32,13 @@ class ReporteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'reportable_type' => 'required|string|in:customer,business,review',
+            'reportable_id' => 'required|integer',
+            'reason' => 'required|string|min:1',
+            'usuario_id' => 'required|exists:id,usuarios'
+        ]);
+
         $reportable_type = match ($request->input('reportable_type')) {
             'business' => Comercio::class,
             'customer' => Cliente::class,
