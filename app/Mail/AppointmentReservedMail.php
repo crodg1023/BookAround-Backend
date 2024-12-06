@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
 class AppointmentReservedMail extends Mailable
 {
@@ -17,7 +18,7 @@ class AppointmentReservedMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Cita $cita)
+    public function __construct(public Cita $cita, public string $pdf_path)
     {
         //
     }
@@ -49,6 +50,10 @@ class AppointmentReservedMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromPath($this->pdf_path)
+                ->as('confirmation.pdf')
+                ->withMime('application/pdf'),
+        ];
     }
 }
