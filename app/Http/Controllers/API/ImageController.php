@@ -195,5 +195,27 @@ class ImageController extends Controller
             'message' => 'No valid image was send'
         ], 400);
     }
+
+    public function deleteBusinessImage($id, $name)
+    {
+        $image = Image::where('comercio_id', $id)
+            ->where('name', $name)
+            ->first();
+
+        $file_path = public_path('uploads/' . $image->name);
+
+        if (file_exists($file_path))
+        {
+            unlink($file_path);
+            $image->delete();
+            return response()->json([
+                'message' => 'image deleted successfully'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'File not found'
+        ], 404);
+    }
 }
 

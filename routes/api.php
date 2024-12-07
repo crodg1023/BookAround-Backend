@@ -34,6 +34,7 @@ Route::get('reportes/customers', [ReporteController::class, 'getCustomersReports
 Route::get('customers/{id}/image', [ImageController::class, 'getCustomerImage']);
 Route::get('companies/{id}/images', [ImageController::class, 'getBusinessImages']);
 Route::delete('delete-image/{id}', [ImageController::class, 'deleteCustomerImage']);
+Route::delete('delete-company-image/{id}/{name}', [ImageController::class, 'deleteBusinessImage']);
 Route::post('update-image/{id}', [ImageController::class, 'updateCustomerImage']);
 Route::get('appointments/customers/{id}', [CitaController::class, 'getCustomerAppointments']);
 Route::get('appointments/companies/{id}', [CitaController::class, 'getBusinessAppointments']);
