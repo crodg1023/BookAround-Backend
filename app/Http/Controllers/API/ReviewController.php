@@ -9,9 +9,15 @@ use App\Http\Requests\ReviewRequest;
 use App\Http\Resources\ReviewResource;
 use App\Models\Comercio;
 use App\Events\NewReviewEvent;
+use App\Http\Middleware\RoleMiddleware;
 
 class ReviewController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
+        $this->middleware(RoleMiddleware::class . ':customer')->only(['store', 'update', 'destroy']);
+    }
     /**
      * Display a listing of the resource.
      */

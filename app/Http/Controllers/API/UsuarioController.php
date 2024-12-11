@@ -7,9 +7,14 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Requests\UsuarioRequest;
 use App\Http\Resources\UsuarioResource;
+use App\Http\Middleware\RoleMiddleware;
 
 class UsuarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(RoleMiddleware::class . ':admin')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

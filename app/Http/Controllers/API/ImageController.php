@@ -22,8 +22,8 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048'
+            'images' => 'required|array|max:5',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($request->hasFile('images')) {
@@ -106,6 +106,116 @@ class ImageController extends Controller
         }
 
         return response()->file($path);
+    }
+
+    public function getBusinessImages($id)
+    {
+        $images = Image::where('comercio_id', $id)->get();
+
+        if ($images->isEmpty())
+        {
+            return response()->json([
+                'message' => 'No images found for this business'
+            ], 404);
+        }
+
+        $imagesPaths = $images->map(function ($image) {
+            $path = public_path('uploads/' . $image->name);
+            if (file_exists($path)) {
+                return asset('uploads/' . $image->name);
+            }
+            return null;
+        })->filter();
+
+        if ($imagesPaths->isEmpty()) {
+            return response()->json([
+                'message' => 'No images found on the server'
+            ], 404);
+        }
+
+        return response()->json([
+            'images' => $imagesPaths
+        ]);
+    }
+
+    public function deleteCustomerImage($id)
+    {
+        $image = Image::where('cliente_id', $id)->first();
+        $file_path = public_path('uploads/' . $image->name);
+
+        if (file_exists($file_path))
+        {
+            unlink($file_path);
+            $image->delete();
+            return response()->json([
+                'message' => 'image deleted successfully'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'File not found'
+        ], 404);
+    }
+
+    public function updateCustomerImage(Request $request, $id)
+    {
+        \Log::info($request);
+        $request->validate([
+            'images' => 'required|array|max:5',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $image = Image::where('cliente_id', $id)->first();
+        $file_path = public_path('uploads/' . $image->name);
+
+        if (file_exists($file_path))
+        {
+            unlink($file_path);
+            $image->delete();
+        }
+
+        if ($request->hasFile('images')) {
+            foreach($request->file('images') as $file) {
+                $image_name = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads'), $image_name);
+
+                $new_image = new Image();
+                $new_image->name = $image_name;
+                $new_image->cliente_id = $request->cliente_id;
+
+                $new_image->save();
+            }
+
+            return response()->json([
+                'message' => 'Image updated successfully'
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'No valid image was send'
+        ], 400);
+    }
+
+    public function deleteBusinessImage($id, $name)
+    {
+        $image = Image::where('comercio_id', $id)
+            ->where('name', $name)
+            ->first();
+
+        $file_path = public_path('uploads/' . $image->name);
+
+        if (file_exists($file_path))
+        {
+            unlink($file_path);
+            $image->delete();
+            return response()->json([
+                'message' => 'image deleted successfully'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'File not found'
+        ], 404);
     }
 }
 

@@ -8,14 +8,15 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Resources\ComercioResource;
 use App\Http\Requests\ComercioRequest;
+use App\Http\Middleware\RoleMiddleware;
 
 class ComercioController extends Controller
 {
-    /*
-    public function __construct() {
-        $this->middleware('auth:sanctum', [ 'except' => [ 'index', 'show'] ]);
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only(['update', 'destroy']);
+        $this->middleware(RoleMiddleware::class . ':admin')->only('destroy');
     }
-    */
     /**
      * Display a listing of the resource.
      */
@@ -56,6 +57,13 @@ class ComercioController extends Controller
      */
     public function update(Request $request, Comercio $company)
     {
+        $request->validate([
+            'name' => 'min:1',
+            'phone' => 'numeric',
+            'address' => 'min:1',
+            'description' => 'min:1'
+        ]);
+
         $company->update($request->all());
 
         return response()->json($company);

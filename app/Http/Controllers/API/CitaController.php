@@ -9,11 +9,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CitaRequest;
 use App\Http\Resources\CitaResource;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AppointmentReservedMail;
+use App\Http\Middleware\RoleMiddleware;
+
 
 class CitaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('store');
+        $this->middleware(RoleMiddleware::class . ':customer')->only(['delete', 'update', 'getCustomerAppointments']);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -25,7 +30,7 @@ class CitaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CitaRequest $request)
     {
         $parsed_date = Carbon::parse($request->dateTime);
 
@@ -39,14 +44,6 @@ class CitaController extends Controller
         $new_appointment->save();
 
         $comercio = Comercio::findOrFail($request->comercio_id);
-
-        /*
-        Mail::to($request->reservation_email)->send(new AppointmentReservedMail([
-            'comercio' => $comercio->name,
-            'fecha' => $parsed_date->format('d/m/Y'),
-            'hora' => $parsed_date->format('h:i A')
-        ]));
-        */
 
         return response()->json($new_appointment);
     }

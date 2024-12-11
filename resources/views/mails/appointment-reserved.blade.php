@@ -1,11 +1,11 @@
 <div class="container">
-    <img src="{{ config('app.url') . '/images/bookaround-logo.jpg' }}" alt="Logo BookAround" class="w-full bg-red-400">
+    <img src="{{ config('app.url') . '/images/bookaround-logo.jpg' }}" alt="Logo BookAround">
     <h1>¡Tu cita ha sido agendada!</h1>
     <div class="info-container">
-        <h2>{{ $data['comercio'] }}</h2>
+        <h2>{{ $cita->comercio->name }}</h2>
         <div class="date-container">
-            <p>{{ $data['fecha'] }}</p>
-            <p>{{ $data['hora'] }}</p>
+            <p>{{ $cita->date_time}}</p>
+            <p>{{ $cita->people }}</p>
         </div>
     </div>
 </div>
