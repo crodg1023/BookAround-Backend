@@ -25,4 +25,13 @@ class PdfService
 
         return $path;
     }
+
+    public function generatePdfPreview()
+    {
+        $pdf = Pdf::loadView('pdf.confirmation');
+        $path = storage_path('app/public/confirmation.pdf');
+        $pdf->save($path);
+
+        return $path;
+    }
 }
